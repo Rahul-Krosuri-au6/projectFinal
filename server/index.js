@@ -7,9 +7,13 @@ const app = express();
 const router = require('./router');
 const mongoose = require('mongoose');
 // const cors = require('cors');  // we don't need it anymore, because we use proxy server instead
+const mongoURI = 'mongodb+srv://rahul-admin:rahul1997@blog.6we4x.mongodb.net/blogDB'
 
 // DB Setup (connect mongoose and instance of mongodb)
-mongoose.connect('mongodb://localhost:27017/blogdb');
+mongoose.connect(mongoURI, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true});
+mongoose.connection.on("connected", function(){
+    console.log("Connected to mongo")
+})
 
 // App Setup (morgan and body-parser are middleware in Express)
 app.use(morgan('combined'));  // middleware for logging
